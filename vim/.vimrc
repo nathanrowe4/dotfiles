@@ -1,6 +1,5 @@
 syntax on
 
-"hello
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -25,15 +24,18 @@ Plug 'morhetz/gruvbox' " Colour scheme
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
 Plug 'Valloric/YouCompleteMe' " YouCompleteMe
-"Plug 'kien/ctrlp.vim'
 Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-set bg=dark
+set background=dark
 colorscheme gruvbox
+
+" Configure fzf
+" Set the fzf popup layout
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " Configuring status line
 set laststatus=2
