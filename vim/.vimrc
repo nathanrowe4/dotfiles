@@ -34,8 +34,6 @@ set background=dark
 colorscheme gruvbox
 
 " Configure fzf
-" Set the fzf popup layout
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " Configuring status line
 set laststatus=2
