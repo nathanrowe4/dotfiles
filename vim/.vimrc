@@ -6,14 +6,18 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set nu
+set relativenumber
 set nowrap
 set smartcase
+set ignorecase
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
 set hlsearch
+set autoread
+set wildmenu
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -27,6 +31,7 @@ Plug 'Valloric/YouCompleteMe' " YouCompleteMe
 Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
+Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 
 call plug#end()
 
@@ -34,6 +39,10 @@ set background=dark
 colorscheme gruvbox
 
 " Configure fzf
+nnoremap <leader>B :Buffers<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>L :Lines<CR>
+nnoremap <leader>C :Commands<CR>
 
 " Configuring status line
 set laststatus=2
