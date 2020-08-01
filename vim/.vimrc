@@ -41,24 +41,34 @@ colorscheme gruvbox
 " Configure fzf
 nnoremap <leader>B :Buffers<CR>
 nnoremap <C-p> :Files<CR>
-nnoremap <leader>L :Lines<CR>
-nnoremap <leader>C :Commands<CR>
 
 " Configuring status line
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
+    \   'colorscheme': 'gruvbox',
+    \   'active': {
+    \       'left': [ 
+    \           [ 'mode', 'paste' ],
+    \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] 
+    \       ]
+    \   },
+    \   'component_function': {
+    \       'gitbranch': 'FugitiveHead'
+    \   }
+    \}
 
 let mapleader = " "
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>H :wincmd H<CR>
+nnoremap <leader>J :wincmd J<CR>
+nnoremap <leader>K :wincmd K<CR>
+nnoremap <leader>L :wincmd L<CR>
+
+nnoremap <leader>tn :tabn<space>
+nnoremap <leader>th :tabprev<CR>
+nnoremap <leader>tl :tabnext<CR>
+
+nnoremap <leader>cd :cd %:h<CR>
