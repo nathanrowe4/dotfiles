@@ -176,13 +176,20 @@ set $darkblack   #1d2021
 
 # Window Colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-client.focused          $black      $red      $lightgrey  $darkblack  $green
-client.unfocused        $black      $black      $white      $darkblack  $darkblue
-client.focused_inactive $black      $black      $white      $darkblack  $darkblue
-client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+#client.focused          $black      $red      $lightgrey  $darkblack  $green
+#client.unfocused        $black      $black      $white      $darkblack  $darkblue
+#client.focused_inactive $black      $black      $white      $darkblack  $darkblue
+#client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+
+client.background #000000
+client.focused #b0c4bb #2f2f38 #b0c4bb #81a2be #81a2be
+client.unfocused #b0c4bb #2f2f38 #b0c4bb #688486 #688486
+client.focused_inactive #b0c4bb #2f2f38 #b0c4bb #688486 #688486
+client.urgent #b0c4bb #2f2f38 #b0c4bb #688486 #688486
+client.placeholder #b0c4bb #2f2f38 #b0c4bb #688486 #688486
 
 # Hiding the borders, meaning that the indicators will be hidden
-hide_edge_borders both
+#hide_edge_borders both
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -194,7 +201,7 @@ bar {
 bindsym $mod+shift+x exec i3lock
 
 # Set wallpaper:
-exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
+exec_always feh --bg-fill $HOME/.config/wallpaper/005.png
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
