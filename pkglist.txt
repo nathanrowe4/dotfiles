@@ -1,0 +1,8 @@
+stow
+rofi
+playerctl
+feh
+i3blocks
+xbacklight
+compton
+fonts-powerline

@@ -90,6 +90,13 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Make the currently focused window a scratchpad
+# https://i3wm.org/docs/userguide.html#_scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the first scratchpad window.
+# This will also cycle through windows
+bindsym $mod+minus scratchpad show
+
 set $workspace1 "1"
 set $workspace2 "2"
 set $workspace3 "3"
@@ -118,8 +125,11 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# Ensure certain programs always start floating:
 for_window [class="Microsoft Teams - Preview"] floating enable, no_focus
+# Disable window titlebars. Necessary for i3-gaps
+for_window [class="^.*"] border pixel 0
+# PCLVisualizer 3D Viewer
+for_window [class="vtk"] floating enable, no_focus
 # Assigning program workspaces
 assign [class="Google-chrome"] $workspace2
 # Startup applications
@@ -187,13 +197,6 @@ client.unfocused        $black      $black      $white      $darkblack  #$blue
 client.focused_inactive $black      $black      $white      $darkblack  #$blue
 client.urgent           $darkred    $darkred    $black      $darkred    #$darkred
 client.background       $background
-
-#client.background #ffffff
-#client.focused #b0c4bb #2f2f38 #b0c4bb #81a2be #81a2be
-#client.unfocused #b0c4bb #2f2f38 #b0c4bb #688486 #688486
-#client.focused_inactive #b0c4bb #2f2f38 #b0c4bb #688486 #688486
-#client.urgent #b0c4bb #2f2f38 #b0c4bb #688486 #688486
-#client.placeholder #b0c4bb #2f2f38 #b0c4bb #688486 #688486
 
 # Hiding the borders, meaning that the indicators will be hidden
 hide_edge_borders both
