@@ -1,6 +1,6 @@
 syntax on
 
-set noerrorbells
+"---------- Formatting
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -8,20 +8,23 @@ set smartindent
 set nu
 set relativenumber
 set nowrap
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+"---------- Search
 set smartcase
 set ignorecase
+set hlsearch
+set incsearch
+set wildmenu
+"---------- Files
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
-set incsearch
-set hlsearch
 set autoread
-set wildmenu
 
-set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
-
+"---------- Plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox' " Colour scheme
@@ -38,10 +41,6 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 
-" Configure fzf
-nnoremap <leader>B :Buffers<CR>
-nnoremap <C-p> :Files<CR>
-
 " Configuring status line
 set laststatus=2
 let g:lightline = {
@@ -57,18 +56,21 @@ let g:lightline = {
     \   }
     \}
 
+"---------------Mappings ----------------
 let mapleader = " "
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>H :wincmd H<CR>
-nnoremap <leader>J :wincmd J<CR>
-nnoremap <leader>K :wincmd K<CR>
-nnoremap <leader>L :wincmd L<CR>
 
 nnoremap <leader>tn :tabn<space>
 nnoremap <leader>th :tabprev<CR>
 nnoremap <leader>tl :tabnext<CR>
 
-nnoremap <leader>cd :cd %:h<CR>
+nnoremap <leader>. :cd %:h<CR>
+
+"fzf
+nnoremap <leader>b :Buffers<CR>
+nnoremap <C-p> :Files<CR>
+
+nnoremap <leader>so :so ~/.vimrc<CR>
