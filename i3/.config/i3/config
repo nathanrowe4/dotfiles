@@ -127,9 +127,10 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 for_window [class="Microsoft Teams - Preview"] floating enable, no_focus
 # Disable window titlebars. Necessary for i3-gaps
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 # PCLVisualizer 3D Viewer
 for_window [class="vtk"] floating enable
+for_window [class="Nautilus"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
 # Startup applications
@@ -192,14 +193,14 @@ set $darkblack   #1d2021
 
 # Widow Colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-client.focused          $white      $black      $white      $darkblack  #$blue
-client.unfocused        $black      $black      $white      $darkblack  #$blue
-client.focused_inactive $black      $black      $white      $darkblack  #$blue
-client.urgent           $darkred    $darkred    $black      $darkred    #$darkred
+client.focused          $white      $black      $white      $darkblack  $white
+client.unfocused        $black      $black      $white      $darkblack  $background
+client.focused_inactive $black      $black      $white      $darkblack  $background
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $background
 
 # Hiding the borders, meaning that the indicators will be hidden
-hide_edge_borders both
+#hide_edge_borders both
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -224,6 +225,7 @@ exec --no-startup-id compton
 bindsym $mod+shift+x exec i3lock --color "$background"
 
 # Set wallpaper:
+#exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 
 # Pulse Audio controls
