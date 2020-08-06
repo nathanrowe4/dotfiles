@@ -2,7 +2,7 @@ syntax on
 
 "---------- Formatting
 set tabstop=2 softtabstop=2
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
 set smartindent
 set nu
@@ -57,7 +57,7 @@ let g:lightline = {
     \   }
     \}
 
-"hi Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
 
 "---------------Mappings ----------------
 let mapleader = " "
@@ -66,10 +66,10 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-noremap K     {
-noremap J     }
-noremap H     ^
-noremap L     $
+noremap K {
+noremap J }
+noremap H ^
+noremap L $
 "--- Insert mode navigational keys
 imap <Up>    <Nop>
 imap <Down>  <Nop>
@@ -89,12 +89,12 @@ nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 "--- Tab navigation
-noremap <S-l> gt
-noremap <S-h> gT
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 "--- fzf.vim commands
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :Files ~/workspaces/cepton_perception_server<CR>
 
 "--- Pairing braces
 inoremap <> <><Left>
@@ -107,6 +107,6 @@ inoremap `` ``<Left>
 
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
-inoremap jj <Esc>
+nnoremap <leader>vim :tabf $MYVIMRC<CR>
 nnoremap <leader>. :cd %:h<CR>
 
