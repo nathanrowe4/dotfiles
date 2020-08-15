@@ -18,11 +18,6 @@ source ~/.zplug/init.zsh
 
 # Bundles from robbyrussell's oh-my-zsh.
 zplug "plugins/git", from:oh-my-zsh
-# Theme https://github.com/denysdovhan/spaceship-prompt/wiki/Presets 
-#zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-#zplug "yarisgutierrez/classyTouch_oh-my-zsh", use:classyTouch.zsh-theme, from:github, as:theme
-#zplug "mafredri/zsh-async", from:github
-#zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
