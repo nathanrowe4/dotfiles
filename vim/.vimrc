@@ -80,6 +80,7 @@ inoremap <C-j> <Down>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 "--- Tab and Shift-Tab indenting
+" Note that <tab> and <C-i> are strictly equivalent
 nmap >> <Nop>
 nmap << <Nop>
 vmap >> <Nop>
@@ -97,16 +98,18 @@ nnoremap <leader>B :BLines<CR>
 nnoremap <C-p> :Files ~/workspaces/cepton_perception_server<CR>
 
 "--- Pairing braces
-inoremap <> <><Left>
-inoremap () ()<Left>
-inoremap {} {}<Left>
-inoremap [] []<Left>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap `` ``<Left>
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap (; ();
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>
 nnoremap <leader>. :cd %:h<CR>
+
 
