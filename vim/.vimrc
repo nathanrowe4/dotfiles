@@ -28,6 +28,10 @@ set autoread
 "---------- Plugins
 call plug#begin('~/.vim/plugged')
 
+Plug 'Valloric/YouCompleteMe' " YouCompleteMe
+"python3 install.py --all --clangd-completer
+"cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=on ..
+"ls -s build/compile_commands.json
 Plug 'morhetz/gruvbox' " Colour scheme
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
@@ -39,10 +43,12 @@ Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 
 call plug#end()
 
+"---------- gruvbox
 set background=dark
 colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
 
-" Configuring status line
+"---------- lightline.vim
 set laststatus=2
 let g:lightline = {
     \   'colorscheme': 'gruvbox',
@@ -57,7 +63,12 @@ let g:lightline = {
     \   }
     \}
 
-hi Normal guibg=NONE ctermbg=NONE
+"---------- YouCompleteMe
+let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--completion-style=detailed']
+" Turn off prompting to load .ycm_extra_conf.py
+let g:ycm_confirm_extra_conf = 0
+nnoremap <leader>y :YcmCompleter 
+
 
 "---------------Mappings ----------------
 let mapleader = " "
@@ -98,8 +109,6 @@ nnoremap <leader>B :BLines<CR>
 nnoremap <C-p> :Files ~/workspaces/cepton_perception_server<CR>
 
 "--- Pairing braces
-inoremap " ""<left>
-inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap (; ();
 inoremap [ []<left>
