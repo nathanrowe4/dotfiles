@@ -225,7 +225,6 @@ exec --no-startup-id compton
 bindsym $mod+shift+x exec i3lock --color "$background"
 
 # Set wallpaper:
-#exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 
 # Pulse Audio controls
@@ -248,3 +247,6 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Screen capture
+bindsym Control+Print exec gnome-screenshot -i

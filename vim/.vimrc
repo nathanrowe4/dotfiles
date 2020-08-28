@@ -40,13 +40,14 @@ Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
+Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
 
 call plug#end()
 
 "---------- gruvbox
 set background=dark
 colorscheme gruvbox
-hi Normal guibg=NONE ctermbg=NONE
+"hi Normal guibg=NONE ctermbg=NONE
 
 "---------- lightline.vim
 set laststatus=2
@@ -67,7 +68,9 @@ let g:lightline = {
 let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--completion-style=detailed']
 " Turn off prompting to load .ycm_extra_conf.py
 let g:ycm_confirm_extra_conf = 0
-nnoremap <leader>y :YcmCompleter 
+nnoremap <leader>y :YcmCompleter<space>
+nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
+nnoremap <F12> :YcmCompleter<space>GoTo<CR>
 
 
 "---------------Mappings ----------------
@@ -110,11 +113,14 @@ nnoremap <C-p> :Files ~/workspaces/cepton_perception_server<CR>
 
 "--- Pairing braces
 inoremap ( ()<left>
-inoremap (; ();
-inoremap [ []<left>
+inoremap () ()
+"inoremap (; ();
+"inoremap [ []<left>
+"inoremap [] []
 inoremap { {}<left>
+inoremap {} {}
 inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
+"inoremap {;<CR> {<CR>};<ESC>O
 
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
