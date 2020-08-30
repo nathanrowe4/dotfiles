@@ -41,6 +41,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
+Plug 'preservim/nerdtree' " File tree explorer
 
 call plug#end()
 
@@ -48,6 +49,9 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 "hi Normal guibg=NONE ctermbg=NONE
+
+"---------- NERDTree
+let NERDTreeShowHidden=1 " Show dot files
 
 "---------- lightline.vim
 set laststatus=2
@@ -68,11 +72,6 @@ let g:lightline = {
 let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--completion-style=detailed']
 " Turn off prompting to load .ycm_extra_conf.py
 let g:ycm_confirm_extra_conf = 0
-nnoremap <leader>y :YcmCompleter<space>
-nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
-nnoremap <F12> :YcmCompleter<space>GoTo<CR>
-
-
 "---------------Mappings ----------------
 let mapleader = " "
 "--- Line and paragraph navigation
@@ -110,7 +109,6 @@ nnoremap <C-h> gT
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
 nnoremap <C-p> :Files <CR>
-
 "--- Pairing braces
 inoremap ( ()<left>
 inoremap () ()
@@ -121,7 +119,12 @@ inoremap { {}<left>
 inoremap {} {}
 inoremap {<CR> {<CR>}<ESC>O
 "inoremap {;<CR> {<CR>};<ESC>O
-
+"--- YCM
+nnoremap <leader>y :YcmCompleter<space>
+nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
+nnoremap <F12> :YcmCompleter<space>GoTo<CR>
+"--- NERDTree
+nnoremap <leader>n :NERDTreeToggle<CR>
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>

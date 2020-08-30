@@ -2,8 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-#export ZSH="/home/kkaai/.oh-my-zsh"
-#source $ZSH/oh-my-zsh.sh
+export ZSH="/home/kimathi/.zplug/repos/robbyrussell/oh-my-zsh"
 
 # Check if z-plug is installed or not. If not, install it:
 # https://github.com/zplug/zplug
@@ -18,6 +17,7 @@ source ~/.zplug/init.zsh
 
 # Bundles from robbyrussell's oh-my-zsh.
 zplug "plugins/git", from:oh-my-zsh
+#zplug "themes/avit", from:oh-my-zsh, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -31,7 +31,8 @@ fi
 zplug load
 
 # ZSH themes
-ZSH_THEME="sunaku"
+ZSH_THEME="avit"
+source $ZSH/oh-my-zsh.sh
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -44,6 +45,9 @@ fi
 
 # Check if there's a local zsh file to source, and source it
 # if it exists:
-[ -f ~/.localzshrc ] && source ~/.localzshrc
+#[ -f ~/.localzshrc ] && source ~/.localzshrc
+
+# virtualenvwrapper
+source ~/.local/bin/virtualenvwrapper.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
