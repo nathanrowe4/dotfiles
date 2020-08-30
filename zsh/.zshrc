@@ -2,8 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/kkaai/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+#export ZSH="/home/kkaai/.oh-my-zsh"
+#source $ZSH/oh-my-zsh.sh
 
 # Check if z-plug is installed or not. If not, install it:
 # https://github.com/zplug/zplug

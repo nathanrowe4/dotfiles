@@ -109,7 +109,7 @@ nnoremap <C-h> gT
 "--- fzf.vim commands
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
-nnoremap <C-p> :Files ~/workspaces/cepton_perception_server<CR>
+nnoremap <C-p> :Files <CR>
 
 "--- Pairing braces
 inoremap ( ()<left>
