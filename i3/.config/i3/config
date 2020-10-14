@@ -14,6 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:System San Fransisco Display 8
+font Font Awesome
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -125,16 +126,12 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-for_window [class="Microsoft Teams - Preview"] floating enable, no_focus
 # Disable window titlebars. Necessary for i3-gaps
 for_window [class="^.*"] border pixel 2
 # PCLVisualizer 3D Viewer
-for_window [class="vtk"] floating enable
 for_window [class="Nautilus"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
-# Startup applications
-exec google-chrome
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -191,7 +188,7 @@ set $white       #ebdbb2
 # Use custom colors for black
 set $darkblack   #1d2021
 
-# Widow Colours
+# Window Colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $white      $black      $white      $darkblack  $white
 client.unfocused        $black      $black      $white      $darkblack  $background
@@ -248,7 +245,14 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
+
 # Screen capture
 bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 exec "xset dpms 600"
+
+# Manage workspaces on system startup
+exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/code/dotfiles/i3/workspace-1.json'"
+exec firefox
+exec gnome-terminal
