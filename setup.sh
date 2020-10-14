@@ -11,6 +11,8 @@ base=(
 
 # Folders that should, or only need to be installed for the local user
 useronly=(
+    i3
+    vim
     git
 )
 
