@@ -252,7 +252,5 @@ bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 exec "xset dpms 600"
 
-# Manage workspaces on system startup
-exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/code/dotfiles/i3/workspace-1.json'"
-exec firefox
-exec gnome-terminal
+# Manage startup
+exec gnome-terminal -e "vim"

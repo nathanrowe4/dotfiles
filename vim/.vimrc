@@ -30,16 +30,25 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'davidhalter/jedi-vim' "Python autocomplete
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
-Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
-Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
+Plug 'preservim/nerdtree' "Plugin to show file structure
+Plug 'Xuyuanp/nerdtree-git-plugin' "Plugin to show git status of files in nerdtree
+Plug 'dense-analysis/ale' "Plugin to lint files for a number of languages
+Plug 'itchyny/lightline.vim'
+Plug 'preservim/nerdcommenter' "Plugin to help with commenting
+Plug 'morhetz/gruvbox' "Colour scheme
+Plug 'jiangmiao/auto-pairs' "Plugin to help with pairs (brackets, quotes, etc)
 
 call plug#end()
 
+"------Colour Scheme
+set background=dark
+colorscheme gruvbox
+
 "---------------Mappings ----------------
-let mapleader = " "
+let mapleader = ","
 "--- Line and paragraph navigation
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -72,3 +81,11 @@ vnoremap <S-Tab> <<<Esc>gv
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
+"---fzf
+nnoremap <leader>b :Buffer<CR>
+nnoremap <leader>B :BLines<CR>
+nnoremap <leader>L :Lines<CR>
+
+"---NERDTree
+nnoremap <leader>f :NERDTreeFocus<CR>
+let g:NERDTreeChDirMode = 2
