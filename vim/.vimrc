@@ -25,30 +25,32 @@ set undodir=~/.vim/undodir
 set undofile
 set autoread
 
+set encoding=utf-8
+
 "---------- Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'davidhalter/jedi-vim' "Python autocomplete
-Plug 'tpope/vim-fugitive' " Git wrapper for vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
+Plug 'valloric/youcompleteme'                           " Plugin to autocomplete code
+Plug 'tpope/vim-fugitive'                               " Plugin git wrapper
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " Fuzzy search
 Plug 'junegunn/fzf.vim'
-Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
-Plug 'preservim/nerdtree' "Plugin to show file structure
-Plug 'Xuyuanp/nerdtree-git-plugin' "Plugin to show git status of files in nerdtree
-Plug 'dense-analysis/ale' "Plugin to lint files for a number of languages
+Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
+Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
 Plug 'itchyny/lightline.vim'
-Plug 'preservim/nerdcommenter' "Plugin to help with commenting
-Plug 'morhetz/gruvbox' "Colour scheme
-Plug 'jiangmiao/auto-pairs' "Plugin to help with pairs (brackets, quotes, etc)
+Plug 'preservim/nerdcommenter'                          " Plugin to help with commenting
+Plug 'jiangmiao/auto-pairs'                             " Plugin to help with pairs (brackets, quotes, etc)
+Plug 'tpope/vim-surround'                               " Plugin to help with surrounding
+Plug 'tpope/vim-repeat'                                 " Plugin to repeat plugin commands
+Plug 'dracula/vim'                                      " Plugin for colorscheme
 
 call plug#end()
 
 "------Colour Scheme
-set background=dark
-colorscheme gruvbox
+colorscheme dracula
 
 "---------------Mappings ----------------
 let mapleader = ","
+
 "--- Line and paragraph navigation
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -58,6 +60,7 @@ noremap K {
 noremap J }
 noremap H ^
 noremap L $
+
 "--- Insert mode navigational keys
 imap <Up>    <Nop>
 imap <Down>  <Nop>
@@ -67,6 +70,7 @@ inoremap <C-k> <Up>
 inoremap <C-j> <Down>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
 "--- Tab and Shift-Tab indenting
 " Note that <tab> and <C-i> are strictly equivalent
 nmap >> <Nop>
@@ -77,6 +81,7 @@ nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
+
 "--- Tab navigation
 nnoremap <C-l> gt
 nnoremap <C-h> gT
@@ -85,7 +90,26 @@ nnoremap <C-h> gT
 nnoremap <leader>b :Buffer<CR>
 nnoremap <leader>B :BLines<CR>
 nnoremap <leader>L :Lines<CR>
+nnoremap <leader>gf :GFiles<CR>
+nnoremap <leader>F :Files<CR>
 
-"---NERDTree
-nnoremap <leader>f :NERDTreeFocus<CR>
-let g:NERDTreeChDirMode = 2
+"---YCM
+nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>rf :YcmCompleter RefactorRename 
+
+"---lightline config
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }

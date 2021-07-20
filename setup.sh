@@ -7,6 +7,7 @@ git submodule update
 # What directories should be installable by all users including the root
 base=(
     bash
+    zsh
 )
 
 # Folders that should, or only need to be installed for the local user
@@ -14,6 +15,7 @@ useronly=(
     i3
     vim
     git
+    tmux
 )
 
 # Run the stow command for the passed in directory ($2) in location $1
@@ -27,7 +29,7 @@ stowit() {
 }
 
 echo ""
-echo "Stowing apps for user: ${whoami}"
+echo "Stowing apps for user: $(whoami)"
 
 # Install apps available to local users and root
 for app in ${base[@]}; do

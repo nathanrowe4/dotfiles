@@ -15,9 +15,10 @@ source ~/.zplug/init.zsh
 
 # List of plugins to load
 
-# Bundles from robbyrussell's oh-my-zsh.
 zplug "plugins/git", from:oh-my-zsh
-#zplug "themes/avit", from:oh-my-zsh, as:theme
+zplug "plugins/kubectl", from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-history-substring-search"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -31,5 +32,38 @@ fi
 zplug load
 
 # ZSH themes
-ZSH_THEME="avit"
+ZSH_THEME="agnoster"
 source $ZSH/oh-my-zsh.sh
+
+export CODE_PATH="${HOME}/code"
+
+# Bart aliases
+export TOOLBOX_PATH="${CODE_PATH}/wright-group/bart"
+export PYTHONPATH="${TOOLBOX_PATH}/python:$PYTHONPATH"
+
+# View aliases
+alias view="${CODE_PATH}/wright-group/view/view"
+
+# Editor aliases
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# Show only user on terminal if user is default
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  fi
+}
+
+# xrandr aliases
+alias xrandr-hori="xrandr --output HDMI-1 --auto --right-of eDP-1"
+alias xrandr-vert="xrandr --output HDMI-1 --auto --right-of eDP-1 --rotate left"
+alias xrandr-off="xrandr --output HDMI-1 --off"
+
+# xclip alias
+alias xclip-pwd="pwd | xclip -selection clipboard"
+
+# misc aliases
+alias ls="ls --color=auto"
+alias ll="ls -la"
+alias grep='grep --color=auto'
