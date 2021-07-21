@@ -17,7 +17,9 @@ set smartcase
 set ignorecase
 set hlsearch
 set incsearch
+set wildmode=longest,list,full
 set wildmenu
+set wildignore=*.o,*~
 "---------- Files
 set noswapfile
 set nobackup
