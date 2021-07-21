@@ -95,6 +95,10 @@ nnoremap <leader>L :Lines<CR>
 nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 
+"---Fugitive
+nnoremap <leader>gs :G status<CR>
+nnoremap <leader>gd :G diff<CR>
+
 "---YCM
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
