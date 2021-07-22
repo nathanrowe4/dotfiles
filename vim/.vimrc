@@ -38,7 +38,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " Fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
 Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
-Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'                            " Plugin for light status bar
 Plug 'preservim/nerdcommenter'                          " Plugin to help with commenting
 Plug 'jiangmiao/auto-pairs'                             " Plugin to help with pairs (brackets, quotes, etc)
 Plug 'tpope/vim-surround'                               " Plugin to help with surrounding
@@ -96,8 +96,7 @@ nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 
 "---Fugitive
-nnoremap <leader>gs :G status<CR>
-nnoremap <leader>gd :G diff<CR>
+nnoremap <leader>gs :Gstatus<CR>
 
 "---YCM
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
