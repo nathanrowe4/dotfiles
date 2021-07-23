@@ -96,7 +96,7 @@ nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 
 "---Fugitive
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gs :G<CR>
 
 "---YCM
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
