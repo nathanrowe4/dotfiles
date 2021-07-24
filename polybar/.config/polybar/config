@@ -33,26 +33,9 @@ font-1 = "FontAwesome:size=10;0"
 wm-restack = i3
 tray-position = 
 
-[bar/right]
-inherit = template/bar
-monitor = VGA-1
-modules-left = volume mail eth
-modules-center = i3
-modules-right = mxbattery clock
-
-[bar/left]
-inherit = template/bar
-monitor = HDMI-1
-modules-left = wired-network
-modules-center = cpu i3 memory
-modules-right = clock
-
 [bar/laptop]
 inherit = template/bar
-monitor = eDP-1
-/*modules-left = wired-network wireless-network volume*/
-/*modules-center = cpu i3 memory*/
-/*modules-right = mail xbacklight eth bat0 bat1 clock*/
+monitor = ${env:MONITOR}
 modules-left = i3
 modules-center = wireless-network cpu memory
 modules-right = bat0 bat1 clock
