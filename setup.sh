@@ -19,6 +19,7 @@ useronly=(
     wallpaper
     polybar
     compton
+    rofi
 )
 
 # Run the stow command for the passed in directory ($2) in location $1
