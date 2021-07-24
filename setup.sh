@@ -16,6 +16,9 @@ useronly=(
     vim
     git
     tmux
+    wallpaper
+    polybar
+    compton
 )
 
 # Run the stow command for the passed in directory ($2) in location $1

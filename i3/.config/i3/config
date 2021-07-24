@@ -5,6 +5,11 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+# i3-gaps stuff
+for_window [class="^.*"] border pixel 0
+gaps inner 8
+gaps outer 8
+
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -38,8 +43,6 @@ bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
-# start rofi in window switcher mode
-bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # change focus
 bindsym $mod+h focus left
@@ -88,9 +91,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
 # Make the currently focused window a scratchpad
 # https://i3wm.org/docs/userguide.html#_scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -130,13 +130,11 @@ bindsym $mod+Shift+0 move container to workspace 10
 for_window [class="^.*"] border pixel 2
 # PCLVisualizer 3D Viewer
 for_window [class="Nautilus"] floating enable
-# Assigning program workspaces
-#assign [class="Google-chrome"] 2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-jindsym $mod+Shift+r restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -201,19 +199,21 @@ client.background       $background
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
-        position top
-        colors {
-            background $background
-            statusline $foreground
-            separator $darkgrey
-            #                  BORDER      BACKGROUND  TEXT
-            focused_workspace  $background $background $foreground
-            inactive_workspace $background $background $darkgrey
-            urgent_workspace   $background $darkred    $background
-        }
-}
+#bar {
+        #status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+        #position top
+        #colors {
+            #background $background
+            #statusline $foreground
+            #separator $darkgrey
+            ##                  BORDER      BACKGROUND  TEXT
+            #focused_workspace  $background $background $foreground
+            #inactive_workspace $background $background $darkgrey
+            #urgent_workspace   $background $darkred    $background
+        #}
+#}
+
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Launch compton, to allow transparency:
 exec --no-startup-id compton
@@ -222,7 +222,7 @@ exec --no-startup-id compton
 bindsym $mod+shift+x exec i3lock --color "$background"
 
 # Set wallpaper:
-exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
+exec_always feh --bg-fill $HOME/.config/wallpaper/dracula_wallpaper.png
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -245,12 +245,15 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
+#exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
 
 # Screen capture
 bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 exec "xset dpms 600"
+
+# Start compton
+exec_always --no-startup-id compton --config $HOME/.compton.conf
 
 # Manage startup
 exec gnome-terminal -e "vim"
