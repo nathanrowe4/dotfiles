@@ -6,7 +6,7 @@
 #
 
 # i3-gaps stuff
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 gaps inner 8
 gaps outer 8
 
@@ -14,23 +14,13 @@ gaps outer 8
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# Configure mod key to windows key
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:System San Fransisco Display 8
+#font pango:System San Fransisco Display 8
 font Font Awesome
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -41,37 +31,23 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start rofi (a program launcher)
+# start rofi with configured theme
 bindsym $mod+d exec --no-startup-id rofi -show run -theme dracula
 
-# change focus
+# change focus with vim-like keybindings
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
+# move focused window with vim-like keybindings
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
+# change split orientation
 bindsym $mod+o split h
-
-# split in vertical orientation
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
@@ -90,17 +66,6 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
-# Make the currently focused window a scratchpad
-# https://i3wm.org/docs/userguide.html#_scratchpad
-bindsym $mod+Shift+minus move scratchpad
-# Show the first scratchpad window.
-# This will also cycle through windows
-bindsym $mod+minus scratchpad show
-
-set $workspace1 "1"
-set $workspace2 "2"
-set $workspace3 "3"
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -126,9 +91,7 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# Disable window titlebars. Necessary for i3-gaps
-for_window [class="^.*"] border pixel 2
-# PCLVisualizer 3D Viewer
+# nautilus in floating window
 for_window [class="Nautilus"] floating enable
 
 # reload the configuration file
@@ -138,7 +101,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
+# resize window
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -150,12 +113,6 @@ mode "resize" {
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -183,10 +140,10 @@ set $darkcyan    #689d6a
 set $cyan        #8ec07c
 set $lightgrey   #a89984
 set $white       #ebdbb2
-# Use custom colors for black
+# use custom colors for black
 set $darkblack   #1d2021
 
-# Window Colours
+# window colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $white      $black      $white      $darkblack  $white
 client.unfocused        $black      $black      $white      $darkblack  $background
@@ -194,34 +151,16 @@ client.focused_inactive $black      $black      $white      $darkblack  $backgro
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $background
 
-# Hiding the borders, meaning that the indicators will be hidden
-#hide_edge_borders both
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-        #status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
-        #position top
-        #colors {
-            #background $background
-            #statusline $foreground
-            #separator $darkgrey
-            ##                  BORDER      BACKGROUND  TEXT
-            #focused_workspace  $background $background $foreground
-            #inactive_workspace $background $background $darkgrey
-            #urgent_workspace   $background $darkred    $background
-        #}
-#}
-
+# launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-# Launch compton, to allow transparency:
-exec --no-startup-id compton
+# launch compton
+exec_always --no-startup-id compton --config $HOME/.compton.conf
 
-# Lock screen
+# lock screen
 bindsym $mod+shift+x exec i3lock --color "$background"
 
-# Set wallpaper:
+# set wallpaper:
 exec_always feh --bg-fill $HOME/.config/wallpaper/dracula_wallpaper.png
 
 # Pulse Audio controls
@@ -245,15 +184,10 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-#exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
-
 # Screen capture
 bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 exec "xset dpms 600"
 
-# Start compton
-exec_always --no-startup-id compton --config $HOME/.compton.conf
-
 # Manage startup
-exec gnome-terminal -e "vim"
+exec gnome-terminal
