@@ -27,6 +27,7 @@ set undodir=~/.vim/undodir
 set undofile
 set autoread
 
+set clipboard=unnamedplus
 set encoding=utf-8
 
 "---------- Plugins
