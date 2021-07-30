@@ -40,10 +40,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
 Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
 Plug 'itchyny/lightline.vim'                            " Plugin for light status bar
-Plug 'preservim/nerdcommenter'                          " Plugin to help with commenting
 Plug 'jiangmiao/auto-pairs'                             " Plugin to help with pairs (brackets, quotes, etc)
 Plug 'tpope/vim-surround'                               " Plugin to help with surrounding
 Plug 'tpope/vim-repeat'                                 " Plugin to repeat plugin commands
+Plug 'tpope/vim-commentary'                             " Plugin to help with commenting
 Plug 'dracula/vim'                                      " Plugin for colorscheme
 
 call plug#end()
@@ -55,10 +55,6 @@ colorscheme dracula
 let mapleader = ","
 
 "--- Line and paragraph navigation
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
 noremap K {
 noremap J }
 noremap H ^
@@ -89,6 +85,20 @@ vnoremap <S-Tab> <<<Esc>gv
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
+"--- Undo break points
+inoremap , ,<c-g>u
+inoremap . .c-g>u
+inoremap ! !c-g>u
+inoremap ? ?c-g>u
+
+"--- Moving text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>k :m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+
 "---fzf
 nnoremap <leader>b :Buffer<CR>
 nnoremap <leader>B :BLines<CR>
@@ -110,7 +120,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'dracula',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
