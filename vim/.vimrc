@@ -87,9 +87,9 @@ nnoremap <C-h> gT
 
 "--- Undo break points
 inoremap , ,<c-g>u
-inoremap . .c-g>u
-inoremap ! !c-g>u
-inoremap ? ?c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
 
 "--- Moving text
 vnoremap J :m '>+1<CR>gv=gv
@@ -108,6 +108,8 @@ nnoremap <leader>F :Files<CR>
 
 "---Fugitive
 nnoremap <leader>gs :G<CR>
+nnoremap <leader>gl :diffget //3<CR>
+nnoremap <leader>gh :diffget //2<CR>
 
 "---YCM
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
