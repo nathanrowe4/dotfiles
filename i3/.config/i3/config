@@ -161,7 +161,7 @@ exec_always --no-startup-id compton --config $HOME/.compton.conf
 bindsym $mod+shift+x exec i3lock --color "$background"
 
 # set wallpaper:
-exec_always feh --bg-fill $HOME/.config/wallpaper/dracula_wallpaper.png
+exec_always feh --bg-fill $HOME/.config/wallpaper/dracula_ubuntu.png
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -188,6 +188,3 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 exec "xset dpms 600"
-
-# Manage startup
-exec gnome-terminal

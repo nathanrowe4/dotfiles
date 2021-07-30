@@ -1,16 +1,15 @@
 [colors]
-bg          = #2f343f
-fg          = #ffffff
-inactive-bg = #2f343f
-inactive-fg = #676E7D
-urgent      = #E53935
-arc-blue    = $ffffff
-
+bg          = #282A36
+fg          = #8BE9FD
+inactive-bg = #44475A
+inactive-fg = #FFFFFF
+urgent      = #FF5555
+arc-blue    = #8BE9FD
 
 [template/bar]
 enable-ipc = true
 width = 100%
-height = 27
+height = 25
 
 background = ${colors.bg}
 foreground = ${colors.fg}

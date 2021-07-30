@@ -67,3 +67,4 @@ alias xclip-pwd="pwd | xclip -selection clipboard"
 alias ls="ls --color=auto"
 alias ll="ls -la"
 alias grep='grep --color=auto'
+alias python="python3"
