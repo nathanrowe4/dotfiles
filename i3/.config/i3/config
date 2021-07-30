@@ -121,35 +121,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# gruvbox dark
-set $background  #282828
-set $foreground  #ebdbb2
-set $black       #282828
-set $darkgrey    #928374
-set $darkred     #cc241d
-set $red         #fb4934
-set $darkgreen   #98971a
-set $green       #b8bb26
-set $darkyellow  #d79921
-set $yellow      #fabd2f
-set $blue    #458588
-set $blue        #83a598
-set $darkmagenta #b16286
-set $magenta     #d3869b
-set $darkcyan    #689d6a
-set $cyan        #8ec07c
-set $lightgrey   #a89984
-set $white       #ebdbb2
-# use custom colors for black
-set $darkblack   #1d2021
+# class                 border  bground text    indicator child_border
+client.focused          #BD93F9 #6272A4 #F8F8F2 #6272A4   #BD93F9
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-# window colours
-#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-client.focused          $white      $black      $white      $darkblack  $white
-client.unfocused        $black      $black      $white      $darkblack  $background
-client.focused_inactive $black      $black      $white      $darkblack  $background
-client.urgent           $darkred    $darkred    $black      $darkred    $darkred
-client.background       $background
+client.background       #F8F8F2
 
 # launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
