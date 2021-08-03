@@ -184,6 +184,7 @@ interval = 2.0
 ping-interval = 10
 label-disconnected = "   No Connection"
 label-disconnected-foreground = ${colors.red}
+format-disconnected = <label-disconnected>
 
 
 [module/wireless-network]

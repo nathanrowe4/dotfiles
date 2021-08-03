@@ -36,7 +36,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'valloric/youcompleteme'                           " Plugin to autocomplete code
 Plug 'tpope/vim-fugitive'                               " Plugin git wrapper
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " Fuzzy search
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'                                 " Fuzzy search
 Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
 Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
 Plug 'itchyny/lightline.vim'                            " Plugin for light status bar
@@ -94,8 +94,6 @@ inoremap ? ?<c-g>u
 "--- Moving text
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-inoremap <C-j> <esc>:m .+1<CR>==
-inoremap <C-k> <esc>:m .-2<CR>==
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
 
