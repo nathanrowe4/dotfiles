@@ -1,0 +1,1 @@
+Create GnuPG encrypted file in this directory called passwords.gpg to be sourced by mutt during authentication.

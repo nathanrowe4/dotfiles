@@ -20,6 +20,7 @@ useronly=(
     polybar
     compton
     rofi
+    mutt
 )
 
 # Run the stow command for the passed in directory ($2) in location $1
