@@ -21,6 +21,7 @@ useronly=(
     compton
     rofi
     mutt
+    newsboat
 )
 
 # Run the stow command for the passed in directory ($2) in location $1

@@ -1,0 +1,41 @@
+# Auto-reload on startup
+auto-reload yes
+
+# Reload feeds every 5 minutes
+reload-time 5
+
+# Reload feeds in parallel
+reload-threads 100
+
+# Maximum 50 items per feed
+max-items 50
+
+# Vim-style keybinds
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+# Dracula colourscheme
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          black     color141
+color listfocus_unread   black     color141 
+color info               default   black
+color article            default   default
+
+# Highlights
+highlight article "^(Title):.*$" color141 default
+highlight article "https?://[^ ]+" color203 default
+highlight article "\\[image\\ [0-9]+\\]" color84 default
+
+# Highlight sub-headings in feed list
+highlight feedlist "---.*---" color84 default bold
+highlight feedlist ".*0/0.." default default invis
