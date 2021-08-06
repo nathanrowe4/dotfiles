@@ -64,7 +64,8 @@ alias xrandr-off="xrandr --output HDMI-1 --off"
 alias xclip-pwd="pwd | xclip -selection clipboard"
 
 # misc aliases
-alias ls="ls --color=auto"
+alias lsg="ls | grep"
 alias ll="ls -la"
+alias llg="ll | grep"
 alias grep='grep --color=auto'
 alias python="python3"

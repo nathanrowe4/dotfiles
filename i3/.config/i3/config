@@ -25,8 +25,11 @@ font Font Awesome
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
+# terminal and other applications
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+m exec i3-sensible-terminal -e "mutt"
+bindsym $mod+n exec i3-sensible-terminal -e "newsboat"
+bindsym $mod+b exec google-chrome
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -53,11 +56,6 @@ bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -78,6 +76,9 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
