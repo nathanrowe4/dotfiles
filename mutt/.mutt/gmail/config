@@ -1,0 +1,15 @@
+set from = "nathanrowe194@gmail.com"
+set hostname = "gmail.com"
+
+set realname = "Nathan Rowe"
+
+set imap_user = "nathanrowe194@gmail.com"
+set smtp_url = "smtps://nathanrowe194@smtp.gmail.com"
+
+set folder = "imaps://imap.gmail.com/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+
+source "gpg -d ~/.mutt/gmail/passwords.gpg |"

@@ -45,21 +45,8 @@ set sort = "reverse-date-received"
 set copy = no
 set folder = "~/.mail"
 
-set from = "nathanrowe194@gmail.com"
-set realname = "Nathan Rowe"
+# Source gmail configuration file
+folder-hook "gmail.com" "source ~/.mutt/gmail/config"
 
-# Pipe decrypted passwords to be sourced by mutt
-source "gpg -d ~/.mutt/passwords.gpg |"
-
-# Imap settings
-set imap_user = "nathanrowe194@gmail.com"
-
-# Smtp settings
-set smtp_url = "smtps://nathanrowe194@smtp.gmail.com"
-
-# Remote gmail folders
-set folder = "imaps://imap.gmail.com/"
-set spoolfile = "+INBOX"
-set postponed = "+[Gmail]/Drafts"
-set record = "+[Gmail]/Sent Mail"
-set trash = "+[Gmail]/Trash"
+# Switch to gmail on startup
+source ~/.mutt/gmail/config
