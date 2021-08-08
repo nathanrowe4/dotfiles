@@ -40,6 +40,7 @@ Plug 'junegunn/fzf.vim'                                 " Fuzzy search
 Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
 Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
 Plug 'itchyny/lightline.vim'                            " Plugin for light status bar
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }  " Plugin for live latex previewing
 Plug 'jiangmiao/auto-pairs'                             " Plugin to help with pairs (brackets, quotes, etc)
 Plug 'tpope/vim-surround'                               " Plugin to help with surrounding
 Plug 'tpope/vim-repeat'                                 " Plugin to repeat plugin commands
@@ -129,3 +130,6 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+"---vim latex live previewer
+let g:livepreview_previewer = 'zathura'
