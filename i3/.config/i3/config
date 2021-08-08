@@ -29,7 +29,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+m exec i3-sensible-terminal -e "mutt"
 bindsym $mod+n exec i3-sensible-terminal -e "newsboat"
-bindsym $mod+b exec google-chrome
+bindsym $mod+b exec brave-browser
 
 # kill focused window
 bindsym $mod+Shift+q kill
