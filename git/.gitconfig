@@ -16,3 +16,6 @@
   untracked = 203
   nobranch = 203
   branch = 123
+[color "branch"]
+  current = 84
+  remote = 203
