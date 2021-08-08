@@ -55,7 +55,115 @@ prompt_context() {
   fi
 }
 
+# fzf configuration
+export FZF_DEFAULT_OPTS='
+  --color=bg+:#282A36,spinner:#BD93F9,hl:#50FA7B
+  --color=fg:#ffffff,header:#8BE9FD,info:#BD93F9,border:#BD93F9,pointer:#50FA7B
+  --color=marker:#8BE9FD,fg+:#ffffff,prompt:#50FA7B,hl+:#50FA7B
+'
+
+# fzf-git functions and aliases
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+fzf-git-branch() {
+  is_in_git_repo || return
+
+  git branch --color=always --all --sort=-committerdate |
+    grep -Ev "HEAD|remote" |
+    fzf --ansi --no-multi --preview-window right:65% --header "Select a branch" \
+        --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+    sed "s/.* //"
+}
+
+# TODO: Add --multi flag and acommodate multiple file selections
+fzf-git-diff-file() {
+  is_in_git_repo || return
+
+  git diff --name-only |
+    fzf --ansi --no-multi --preview-window right:65% --header "Select a file" \
+        --preview 'git diff --color=always --date=short -- {}'
+}
+
+# TODO: Add --multi flag and acommodate multiple file selections
+fzf-git-diff() {
+  is_in_git_repo || return
+
+  local file
+
+  file=$(fzf-git-diff-file)
+
+  if [[ "$file" = "" ]]; then
+    echo "No file selected."
+    return
+  fi
+
+  git diff $file;
+}
+
+# TODO: Add --multi flag and acommodate multiple file selections
+fzf-git-overwrite-local() {
+  is_in_git_repo || return
+
+  local file
+
+  file=$(fzf-git-diff-file)
+
+  if [[ "$file" = "" ]]; then
+    echo "No file selected."
+    return
+  fi
+
+  git checkout -- $file
+}
+
+fzf-git-checkout() {
+  is_in_git_repo || return
+
+  local branch
+
+  branch=$(fzf-git-branch)
+  if [[ "$branch" = "" ]]; then
+      echo "No branch selected."
+      return
+  fi
+
+  git checkout $branch;
+}
+
+fzf-git-delete-branch() {
+  is_in_git_repo || return
+
+  branch=$(fzf-git-branch)
+  if [[ "$branch" = "" ]]; then
+      echo "No branch selected."
+      return
+  fi
+
+  git branch -d $branch
+}
+
+fzf-git-force-delete-branch() {
+  is_in_git_repo || return
+
+  branch=$(fzf-git-branch)
+  if [[ "$branch" = "" ]]; then
+      echo "No branch selected."
+      return
+  fi
+
+  git branch -D $branch
+}
+
+alias gco="fzf-git-checkout"
+alias gdb="fzf-git-delete-branch"
+alias gDb="fzf-git-force-delete-branch"
+alias gdf="fzf-git-diff"
+alias gol="fzf-git-overwrite-local"
+
 # xrandr aliases
+# TODO: Write fzf function to add available monitor
 alias xrandr-hori="xrandr --output HDMI-1 --auto --right-of eDP-1"
 alias xrandr-vert="xrandr --output HDMI-1 --auto --right-of eDP-1 --rotate left"
 alias xrandr-off="xrandr --output HDMI-1 --off"
@@ -69,3 +177,6 @@ alias ll="ls -la"
 alias llg="ll | grep"
 alias grep='grep --color=auto'
 alias python="python3"
+
+# DO NOT CHANGE
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
