@@ -67,7 +67,7 @@ is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
-fzf-git-branch() {
+fzf_git_branch() {
   is_in_git_repo || return
 
   git branch --color=always --all --sort=-committerdate |
@@ -77,90 +77,103 @@ fzf-git-branch() {
     sed "s/.* //"
 }
 
-# TODO: Add --multi flag and acommodate multiple file selections
-fzf-git-diff-file() {
+fzf_git_branch_multi() {
+  is_in_git_repo || return
+
+  git branch --color=always --all --sort=-committerdate |
+    grep -Ev "HEAD|remote" |
+    fzf --ansi --multi --preview-window right:65% --header "Select a branch" \
+        --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+    sed "s/.* //"
+}
+
+fzf_git_mod_files() {
   is_in_git_repo || return
 
   git diff --name-only |
-    fzf --ansi --no-multi --preview-window right:65% --header "Select a file" \
+    fzf --ansi --multi --preview-window right:65% --header "Select a file" \
         --preview 'git diff --color=always --date=short -- {}'
 }
 
-# TODO: Add --multi flag and acommodate multiple file selections
-fzf-git-diff() {
+fzf_git_diff() {
   is_in_git_repo || return
 
-  local file
+  local mod_files
 
-  file=$(fzf-git-diff-file)
+  mod_files=$(fzf_git_mod_files)
 
-  if [[ "$file" = "" ]]; then
-    echo "No file selected."
+  if [[ "$mod_files" = "" ]]; then
+    echo "No file(s) selected."
     return
   fi
 
-  git diff $file;
+  echo $mod_files | xargs git diff
 }
 
-# TODO: Add --multi flag and acommodate multiple file selections
-fzf-git-overwrite-local() {
+fzf_git_overwrite_local() {
   is_in_git_repo || return
 
-  local file
+  local mod_files
 
-  file=$(fzf-git-diff-file)
+  mod_files=$(fzf_git_mod_files)
 
-  if [[ "$file" = "" ]]; then
-    echo "No file selected."
+  if [[ "$mod_files" = "" ]]; then
+    echo "No file(s) selected."
     return
   fi
 
-  git checkout -- $file
+  echo $mod_files | xargs git checkout --
 }
 
-fzf-git-checkout() {
+# TODO: Add flag to include remote branches
+fzf_git_checkout() {
   is_in_git_repo || return
 
   local branch
 
-  branch=$(fzf-git-branch)
+  branch=$(fzf_git_branch)
   if [[ "$branch" = "" ]]; then
       echo "No branch selected."
       return
   fi
 
-  git checkout $branch;
+  if [[ "$branch" = "remotes/"* ]]; then
+    git checkout --track $branch
+  else
+    git checkout $branch
+  fi
 }
 
-fzf-git-delete-branch() {
+fzf_git_delete_branch() {
   is_in_git_repo || return
 
-  branch=$(fzf-git-branch)
-  if [[ "$branch" = "" ]]; then
-      echo "No branch selected."
+  branches=$(fzf_git_branch_multi)
+  if [[ "$branches" = "" ]]; then
+    echo "No branch(es) selected."
       return
   fi
 
-  git branch -d $branch
+  echo $branches | xargs git branch -d
 }
 
-fzf-git-force-delete-branch() {
+fzf_git_force_delete_branch() {
   is_in_git_repo || return
 
-  branch=$(fzf-git-branch)
-  if [[ "$branch" = "" ]]; then
-      echo "No branch selected."
+  branches=$(fzf_git_branch_multi)
+  if [[ "$branches" = "" ]]; then
+    echo "No branch(es) selected."
       return
   fi
 
-  git branch -D $branch
+  echo $branches | xargs git branch -D
 }
 
-alias gco="fzf-git-checkout"
-alias gdb="fzf-git-delete-branch"
-alias gDb="fzf-git-force-delete-branch"
-alias gdf="fzf-git-diff"
-alias gol="fzf-git-overwrite-local"
+alias gb="fzf_git_branch"
+alias gco="fzf_git_checkout"
+alias gdb="fzf_git_delete_branch"
+alias gDb="fzf_git_force_delete_branch"
+alias gdf="fzf_git_diff"
+alias gol="fzf_git_overwrite_local"
 
 # xrandr aliases
 # TODO: Write fzf function to add available monitor
