@@ -1,10 +1,8 @@
-# If you come from bash you might have to change your $PATH.
+# if you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/nathanrowe/.zplug/repos/robbyrussell/oh-my-zsh"
-
-# Check if z-plug is installed or not. If not, install it:
+# check if z-plug is installed or not. If not, install it:
 # https://github.com/zplug/zplug
 if [[ ! -d ~/.zplug ]]; then
   echo "z-plug not installed. Installing it."
@@ -13,14 +11,11 @@ fi
 
 source ~/.zplug/init.zsh
 
-# List of plugins to load
-
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/kubectl", from:oh-my-zsh
+# list of plugins to load
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search"
 
-# Install plugins if there are plugins that have not been installed
+# install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -28,161 +23,62 @@ if ! zplug check --verbose; then
     fi
 fi
 
-# Then, source plugins and add commands to $PATH
+# source plugins and add commands to $PATH
 zplug load
 
-# ZSH themes
-ZSH_THEME="agnoster"
-source $ZSH/oh-my-zsh.sh
+# setup pure prompt
+fpath+=$HOME/.pure
+autoload -U promptinit; promptinit
+prompt pure
+
+# editor aliases
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export TERMINAL="gnome-terminal"
+export BROWSER="google-chrome"
+export READER="zathura"
 
 export CODE_PATH="${HOME}/code"
 
-# Bart aliases
+# wright group stuff
+# bart aliases
 export TOOLBOX_PATH="${CODE_PATH}/wright-group/bart"
 export PYTHONPATH="${TOOLBOX_PATH}/python:$PYTHONPATH"
 
-# View aliases
+# view alias
 alias view="${CODE_PATH}/wright-group/view/view"
 
-# Editor aliases
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-# Show only user on terminal if user is default
-prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-  fi
-}
-
 # fzf configuration
-export FZF_DEFAULT_OPTS='
-  --color=bg+:#282A36,spinner:#BD93F9,hl:#50FA7B
-  --color=fg:#ffffff,header:#8BE9FD,info:#BD93F9,border:#BD93F9,pointer:#50FA7B
-  --color=marker:#8BE9FD,fg+:#ffffff,prompt:#50FA7B,hl+:#50FA7B
-'
+export FZF_DEFAULT_OPTS="
+  --color=fg:#D8DEE9,bg:#2E3440,hl:#4C566A,fg+:#d8dee9,bg+:#3B4252,hl:#d8dee9
+  --color=hl+:#81A1C1,info:#81A1C1,border:#81A1C1,prompt:#81A1C1,pointer:#81A1C1
+  --color=marker:#81A1C1,spinner:#81A1C1,header:#4C566A,preview-fg:#D8DEE9
+"
 
-# fzf-git functions and aliases
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
+# configure colour of auto-suggested text
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=67"
+export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
-fzf_git_branch() {
-  is_in_git_repo || return
+# source efficienzsh files
+export efficienzsh="${CODE_PATH}/efficienzsh"
+[ -f $efficienzsh/fzf-git.zsh ] && source $efficienzsh/fzf-git.zsh
+[ -f $efficienzsh/fzf-kubectl.zsh ] && source $efficienzsh/fzf-kubectl.zsh
+[ -f $efficienzsh/fzf-gh.zsh ] && source $efficienzsh/fzf-gh.zsh
 
-  git branch --color=always --all --sort=-committerdate |
-    grep -Ev "HEAD|remote" |
-    fzf --ansi --no-multi --preview-window right:65% --header "Select a branch" \
-        --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
-    sed "s/.* //"
-}
+# xrandr functions and aliases
+[ -f ~/.scripts/xrandr.zsh ] && source ~/.scripts/xrandr.zsh
 
-fzf_git_branch_multi() {
-  is_in_git_repo || return
+# to-do list functions and aliases
+[ -f ~/.scripts/todo.zsh ] && source ~/.scripts/todo.zsh
 
-  git branch --color=always --all --sort=-committerdate |
-    grep -Ev "HEAD|remote" |
-    fzf --ansi --multi --preview-window right:65% --header "Select a branch" \
-        --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
-    sed "s/.* //"
-}
+# python venv functions and aliases
+[ -f ~/.scripts/venv.zsh ] && source ~/.scripts/venv.zsh
 
-fzf_git_mod_files() {
-  is_in_git_repo || return
-
-  git diff --name-only |
-    fzf --ansi --multi --preview-window right:65% --header "Select a file" \
-        --preview 'git diff --color=always --date=short -- {}'
-}
-
-fzf_git_diff() {
-  is_in_git_repo || return
-
-  local mod_files
-
-  mod_files=$(fzf_git_mod_files)
-
-  if [[ "$mod_files" = "" ]]; then
-    echo "No file(s) selected."
-    return
-  fi
-
-  echo $mod_files | xargs git diff
-}
-
-fzf_git_overwrite_local() {
-  is_in_git_repo || return
-
-  local mod_files
-
-  mod_files=$(fzf_git_mod_files)
-
-  if [[ "$mod_files" = "" ]]; then
-    echo "No file(s) selected."
-    return
-  fi
-
-  echo $mod_files | xargs git checkout --
-}
-
-# TODO: Add flag to include remote branches
-fzf_git_checkout() {
-  is_in_git_repo || return
-
-  local branch
-
-  branch=$(fzf_git_branch)
-  if [[ "$branch" = "" ]]; then
-      echo "No branch selected."
-      return
-  fi
-
-  if [[ "$branch" = "remotes/"* ]]; then
-    git checkout --track $branch
-  else
-    git checkout $branch
-  fi
-}
-
-fzf_git_delete_branch() {
-  is_in_git_repo || return
-
-  branches=$(fzf_git_branch_multi)
-  if [[ "$branches" = "" ]]; then
-    echo "No branch(es) selected."
-      return
-  fi
-
-  echo $branches | xargs git branch -d
-}
-
-fzf_git_force_delete_branch() {
-  is_in_git_repo || return
-
-  branches=$(fzf_git_branch_multi)
-  if [[ "$branches" = "" ]]; then
-    echo "No branch(es) selected."
-      return
-  fi
-
-  echo $branches | xargs git branch -D
-}
-
-alias gb="fzf_git_branch"
-alias gco="fzf_git_checkout"
-alias gdb="fzf_git_delete_branch"
-alias gDb="fzf_git_force_delete_branch"
-alias gdf="fzf_git_diff"
-alias gol="fzf_git_overwrite_local"
-
-# xrandr aliases
-# TODO: Write fzf function to add available monitor
-alias xrandr-hori="xrandr --output HDMI-1 --auto --right-of eDP-1"
-alias xrandr-vert="xrandr --output HDMI-1 --auto --right-of eDP-1 --rotate left"
-alias xrandr-off="xrandr --output HDMI-1 --off"
+# clockify-cli functions and aliases
+[ -f ~/.scripts/clockify.zsh ] && source ~/.scripts/clockify.zsh
 
 # xclip alias
-alias xclip-pwd="pwd | xclip -selection clipboard"
+alias cpwd="pwd | xclip -selection clipboard"
 
 # misc aliases
 alias lsg="ls | grep"
@@ -191,5 +87,12 @@ alias llg="ll | grep"
 alias grep='grep --color=auto'
 alias python="python3"
 
-# DO NOT CHANGE
+# source fzf file if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function env_mlflow_vysio() {
+  export MLFLOW_TRACKING_URI="http://mlflow.vysio.ca"
+  export MLFLOW_TRACKING_USERNAME="admin"
+  export MLFLOW_TRACKING_PASSWORD="guhfugpass"
+  export GOOGLE_APPLICATION_CREDENTIALS="/home/nathanrowe/code/vysio/mlflow/mlflow/vysio-330718-0ceb5e77143e.json"
+}
