@@ -11,6 +11,7 @@ set nowrap
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd VimResized * wincmd =
+set noshowmode
 
 "---------- Search
 set smartcase
@@ -20,6 +21,7 @@ set incsearch
 set wildmode=longest,list,full
 set wildmenu
 set wildignore=*.o,*~
+
 "---------- Files
 set noswapfile
 set nobackup
@@ -28,32 +30,56 @@ set undofile
 set autoread
 
 set clipboard=unnamedplus
-set encoding=utf-8
+set encoding=UTF-8
+set cmdheight=2
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Wrap git commits at 72 characters
+au FileType gitcommit setlocal tw=72
 
 "---------- Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'valloric/youcompleteme'                           " Plugin to autocomplete code
-Plug 'tpope/vim-fugitive'                               " Plugin git wrapper
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'                               " Git
+Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " Fuzzy search
 Plug 'junegunn/fzf.vim'                                 " Fuzzy search
-Plug 'RRethy/vim-illuminate'                            " Plugin to highlight the word under the cursor
-Plug 'dense-analysis/ale'                               " Plugin to lint files for a number of languages
-Plug 'itchyny/lightline.vim'                            " Plugin for light status bar
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }  " Plugin for live latex previewing
-Plug 'jiangmiao/auto-pairs'                             " Plugin to help with pairs (brackets, quotes, etc)
-Plug 'tpope/vim-surround'                               " Plugin to help with surrounding
-Plug 'tpope/vim-repeat'                                 " Plugin to repeat plugin commands
-Plug 'tpope/vim-commentary'                             " Plugin to help with commenting
-Plug 'dracula/vim'                                      " Plugin for colorscheme
+Plug 'junegunn/vim-peekaboo'                            " Preview registers/macros
+Plug 'RRethy/vim-illuminate'                            " Highlight the word under the cursor
+Plug 'itchyny/lightline.vim'                            " Status bar
+Plug 'tpope/vim-surround'                               " Surrounding
+Plug 'tpope/vim-repeat'                                 " Repeat plugin commands
+Plug 'tpope/vim-commentary'                             " Commenting
+Plug 'wellle/targets.vim'
+Plug 'arcticicestudio/nord-vim'                         " Nord theme
+Plug 'stsewd/fzf-checkout.vim'
+Plug 'sbdchd/neoformat'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
 "------Colour Scheme
-colorscheme dracula
+colorscheme nord
+set termguicolors
 
 "---------------Mappings ----------------
 let mapleader = ","
+
+"--- Map jk to Esc
+imap jk <Esc>
+
+"--- Make Y behave like other capital letters
+nnoremap Y y$
 
 "--- Line and paragraph navigation
 noremap K {
@@ -98,30 +124,37 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
 
-"---fzf
+"--- fzf
 nnoremap <leader>b :Buffer<CR>
 nnoremap <leader>B :BLines<CR>
 nnoremap <leader>L :Lines<CR>
 nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>F :Files<CR>
+nnoremap <leader>w :Windows<CR>
 
-"---Fugitive
+"--- Fugitive
 nnoremap <leader>gs :G<CR>
-nnoremap <leader>gl :diffget //3<CR>
-nnoremap <leader>gh :diffget //2<CR>
+nnoremap <leader>gc :G commit<CR>
+nnoremap <leader>gp :G push<CR>
 
-"---YCM
-nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>rf :YcmCompleter RefactorRename 
+"--- fzf Checkout
+nnoremap <leader>gco :GBranches checkout --locals<CR>
+nnoremap <leader>gdb :GBranches delete<CR>
+nnoremap <leader>grb :GBranches rebase<CR>
+nnoremap <leader>gmb :GBranches merge<CR>
+nnoremap <leader>gtb :GBranches track --remotes<CR>
 
-"---lightline config
+"--- Jumplist mutations
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+
+"--- lightline config
 set laststatus=2
 if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-      \ 'colorscheme': 'dracula',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -129,7 +162,75 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
       \ },
+      \ 'tab_component_function': {
+      \   'tabnum': 'LightlineWebDevIcons',
+      \ },
       \ }
 
-"---vim latex live previewer
-let g:livepreview_previewer = 'zathura'
+function! LightlineWebDevIcons(n)
+  let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+  return WebDevIconsGetFileTypeSymbol(bufname(l:bufnr))
+endfunction
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Label'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'],
+  \ 'preview-fg': ['fg', 'Normal']}
+
+let &t_TI = ""
+let &t_TE = ""
+
+""" COC config
+" Map <tab> to trigger completion and navigate to the next item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> T :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader> rn <Plug>(coc-rename)
