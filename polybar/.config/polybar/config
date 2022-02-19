@@ -1,25 +1,35 @@
 [colors]
-dark   = #282A36
-grey   = #44475A
-white  = #FFFFFF
-purple = #BD93F9
-green  = #50FA7B
-red    = #FF5555
+nord0  = #2E3440
+nord1  = #3B4252
+nord2  = #434C5E
+nord3  = #4C566A
+nord4  = #D8DEE9
+nord5  = #E5E9F0
+nord6  = #ECEFF4
+nord7  = #8FBCBB
+nord8  = #88C0D0
+nord9  = #81A1C1
+nord10 = #5E81AC
+nord11 = #BF616A
+nord12 = #D08770
+nord13 = #EBCB8B
+nord14 = #A3BE8C
+nord15 = #B48EAD
 
 [template/bar]
 enable-ipc = true
 width = 100%
 height = 25
 
-background = ${colors.dark}
-foreground = ${colors.purple}
+background = ${colors.nord0}
+foreground = ${colors.nord8}
 
-border-bottom-size = 0
-border-bottom-color = ${colors.grey}
+border-bottom-size = 2
+border-bottom-color = ${colors.nord3}
 
-overline-size = 0
+overline-size = 2
 overline-color = ${self.background}
-underline-size = 1
+underline-size = 0
 underline-color = ${self.background}
 
 padding-left = 0
@@ -36,38 +46,8 @@ tray-position =
 inherit = template/bar
 monitor = ${env:MONITOR}
 modules-left = i3
-modules-center = cpu memory
+modules-center = cpu memory volume
 modules-right = wireless-network bat clock
-
-[module/mxbattery]
-type = custom/script
-interval = 60
-format = <label>
-format-foreground = ${colors.purple}
-exec = ~/.scripts/mxbattery.sh
-
-[module/xbacklight]
-type = internal/xbacklight
-output = eDP-1
-format = <ramp> <bar>
-
-ramp-0 = 
-ramp-0-foreground = ${colors.grey}
-ramp-1 = 
-ramp-1-foreground = ${colors.white}
-ramp-2 = 
-ramp-2-foreground = ${colors.purple}
-
-bar-width = 12
-bar-indicator = |
-bar-indicator-font = 6
-bar-indicator-foreground = ${colors.purple}
-bar-fill = ─
-bar-fill-font = 6
-bar-fill-foreground = ${colors.purple}
-bar-empty = ─
-bar-empty-font = 6
-bar-empty-foreground = ${colors.grey}
 
 [module/volume]
 type = internal/volume
@@ -75,26 +55,26 @@ master-mixer=Master
 format-volume = <ramp-volume> <bar-volume>
 format-muted = <label-muted>
 
-label-muted-foreground = ${colors.white}
+label-muted-foreground = ${colors.nord4}
 label-muted =  muted
 
 ramp-volume-0 = "  "
-ramp-volume-0-foreground = ${colors.grey}
+ramp-volume-0-foreground = ${colors.nord3}
 ramp-volume-1 = " "
-ramp-volume-1-foreground = ${colors.white}
+ramp-volume-1-foreground = ${colors.nord4}
 ramp-volume-2 = 
-ramp-volume-2-foreground = ${colors.purple}
+ramp-volume-2-foreground = ${colors.nord8}
 
 bar-volume-width = 12
 bar-volume-indicator = |
 bar-volume-indicator-font = 6
-bar-volume-indicator-foreground = ${colors.purple}
+bar-volume-indicator-foreground = ${colors.nord8}
 bar-volume-fill = ─
 bar-volume-fill-font = 6
-bar-volume-fill-foreground = ${colors.purple}
+bar-volume-fill-foreground = ${colors.nord8}
 bar-volume-empty = ─
 bar-volume-empty-font = 6
-bar-volume-empty-foreground = ${colors.grey}
+bar-volume-empty-foreground = ${colors.nord3}
 
 [module/i3]
 type = internal/i3
@@ -102,12 +82,12 @@ format = <label-state> <label-mode>
 pin-workspaces = false
 
 ws-icon-0 = 1;
-ws-icon-1 = 2;
+ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;
-ws-icon-6 = 7;7
+ws-icon-6 = 7;
 ws-icon-7 = 8;8
 ws-icon-8 = 9;
 ws-icon-9 = 10;10
@@ -116,32 +96,33 @@ ws-icon-default = 
 label-dimmed-underline = ${root.background}
 
 label-mode = %mode%
-label-mode-foreground = ${colors.purple}
+label-mode-foreground = ${colors.nord8}
 label-mode-padding = 2
 
 label-focused = %icon%
-label-focused-foreground = ${colors.purple}
-label-focused-background = ${colors.grey}
-label-focused-underline = ${colors.purple}
+label-focused-foreground = ${colors.nord8}
+label-focused-background = ${colors.nord1}
+label-focused-underline = ${colors.nord8}
+label-focused-overline = ${colors.nord8}
 label-focused-font = 4
 label-focused-padding = 4
 
 label-unfocused = %icon%
-label-unfocused-foreground = ${colors.white}
-label-unfocused-underline = ${colors.dark}
+label-unfocused-foreground = ${colors.nord4}
+label-unfocused-underline = ${colors.nord0}
 label-unfocused-font = 4
 label-unfocused-padding = 4
 
 label-red = %icon%
-label-red-foreground = ${colors.red}
-label-red-background = ${colors.dark}
-label-red-underline = ${colors.red}
+label-red-foreground = ${colors.nord11}
+label-red-background = ${colors.nord0}
+label-red-underline = ${colors.nord11}
 label-red-font = 4
 label-red-padding = 4
 
 label-visible = %icon%
-label-visible-foreground = ${colors.purple}
-label-visible-background = ${colors.grey}
+label-visible-foreground = ${colors.nord8}
+label-visible-background = ${colors.nord0}
 label-visible-font = 4
 label-visible-padding = 4
 
@@ -150,8 +131,8 @@ label-visible-padding = 4
 type = internal/cpu
 interval = 1.5
 label =   %percentage%%
-label-foreground = ${colors.white}
-ramp-coreload-foreground = ${colors.white}
+label-foreground = ${colors.nord4}
+ramp-coreload-foreground = ${colors.nord4}
 ramp-coreload-0 = ▁
 ramp-coreload-1 = ▂
 ramp-coreload-2 = ▃
@@ -168,13 +149,13 @@ type = internal/memory
 interval = 3
 label =   %percentage_used% %
 label-font = 10
-label-foreground = ${colors.white}
+label-foreground = ${colors.nord4}
 bar-used-indicator =
 bar-used-width = 5
 bar-used-fill = "█ "
 bar-used-empty = "█ "
-bar-used-fill-foreground = ${colors.white}
-bar-used-empty-foreground = ${colors.grey}
+bar-used-fill-foreground = ${colors.nord4}
+bar-used-empty-foreground = ${colors.nord3}
 format = <label> <bar-used>
 
 
@@ -183,7 +164,7 @@ type = internal/network
 interval = 2.0
 ping-interval = 10
 label-disconnected = "   No Connection"
-label-disconnected-foreground = ${colors.red}
+label-disconnected-foreground = ${colors.nord11}
 format-disconnected = <label-disconnected>
 
 
@@ -192,18 +173,18 @@ inherits = template/network
 interface = wlp2s0
 format-connected = <label-connected>
 label-connected = "   %essid%  (%signal%%)"
-label-connected-foreground = ${colors.green}
+label-connected-foreground = ${colors.nord14}
 
 
 [module/clock]
 type = internal/date
 interval = 1
 format-padding = 0
-format-background = ${colors.dark}
-format-foreground = ${colors.purple}
+format-background = ${colors.nord0}
+format-foreground = ${colors.nord8}
 date = %%{F#bb}%a %e %b%%{F-}
 date-alt = %%{F#bb}%D%{F-}
-time = %H:%M
+time = %H:%M:%S
 time-alt = %H:%M:%S
 label = "%date% %time%  "
 format = <label>
@@ -213,17 +194,17 @@ format = <label>
 type = internal/battery
 full-at = 99
 
-ramp-capacity-foreground = ${colors.white}
+ramp-capacity-foreground = ${colors.nord4}
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-label-discharging-foreground = ${colors.white}
+label-discharging-foreground = ${colors.nord4}
 label-discharging = %percentage%%
 
-label-charging-foreground = ${colors.purple}
+label-charging-foreground = ${colors.nord7}
 label-charging = 
 
 format-discharging = <label-discharging> <ramp-capacity>
@@ -234,5 +215,3 @@ format-full = <ramp-capacity>
 [module/bat]
 inherit = template/battery
 battery = BAT0
-
-; vim:ft=dosini

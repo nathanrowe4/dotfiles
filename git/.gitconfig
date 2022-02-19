@@ -1,21 +1,22 @@
 [user]
 	name = Nathan Rowe
 	email = nathanrowe@bell.net
+	signingkey = 47566BB807E29687
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 [color "diff"]
-  meta = 141
-  new = 84
+  meta = 179
+  new = 142
   old = 203
 [color "status"]
-  added = 84
+  added = 142
   changed = 203
   untracked = 203
   nobranch = 203
-  branch = 123
+  branch = 109
 [color "branch"]
-  current = 84
+  current = 142
   remote = 203

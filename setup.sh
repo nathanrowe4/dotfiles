@@ -18,10 +18,10 @@ useronly=(
     tmux
     wallpaper
     polybar
-    compton
     rofi
-    mutt
     newsboat
+    dunst
+    zathura
 )
 
 # Run the stow command for the passed in directory ($2) in location $1

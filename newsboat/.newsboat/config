@@ -22,20 +22,23 @@ bind-key k up
 bind-key l open
 bind-key h quit
 
-# Dracula colourscheme
-color background         default   default
-color listnormal         default   default
-color listnormal_unread  default   default
-color listfocus          black     color141
-color listfocus_unread   black     color141 
-color info               default   black
-color article            default   default
+# Newsboat colour scheme to work with the Nord palette
+color background          color236   default
+color listnormal          color248   default
+color listnormal_unread   color38     default
+color listfocus           color236   color12
+color listfocus_unread    color15    color12
+color info                color248   color236
+color article             color248   default
 
-# Highlights
-highlight article "^(Title):.*$" color141 default
-highlight article "https?://[^ ]+" color203 default
-highlight article "\\[image\\ [0-9]+\\]" color84 default
+# highlights
+highlight article "^(Feed|Link):.*$" color6 default bold
+highlight article "^(Title|Date|Author):.*$" color6 default bold
+highlight article "https?://[^ ]+" color10 default underline
+highlight article "\\[[0-9]+\\]" color10 default bold
+highlight article "\\[image\\ [0-9]+\\]" color10 default bold
+highlight feedlist "^─.*$" color6 color236 bold
 
 # Highlight sub-headings in feed list
-highlight feedlist "---.*---" color84 default bold
+highlight feedlist "---.*---" color59 default bold
 highlight feedlist ".*0/0.." default default invis

@@ -27,15 +27,16 @@ floating_modifier $mod
 
 # terminal and other applications
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+m exec i3-sensible-terminal -e "mutt"
 bindsym $mod+n exec i3-sensible-terminal -e "newsboat"
-bindsym $mod+b exec brave-browser
+bindsym $mod+b exec google-chrome
+bindsym $mod+p exec zathura
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start rofi with configured theme
-bindsym $mod+d exec --no-startup-id rofi -show run -theme dracula
+bindsym $mod+Shift+Return exec --no-startup-id rofi -show run -theme nord
+bindsym $mod+w exec --no-startup-id rofi -show window -theme nord
 
 # change focus with vim-like keybindings
 bindsym $mod+h focus left
@@ -122,26 +123,26 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# class                 border  bground text    indicator child_border
-client.focused          #BD93F9 #6272A4 #F8F8F2 #6272A4   #BD93F9
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# class                     border  bground text    indicator child_border
+client.focused              #88C0D0 #665c54 #eddbb2 #88C0D0   #88C0D0
+client.focused_inactive     #4A5875 #5f676a #ffffff #4A5875   #4A5875
+client.unfocused            #4A5875 #3c3836 #a89984 #4A5875   #4A5875
+client.urgent               #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
+client.placeholder          #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-client.background       #F8F8F2
+client.background           #ffffff
 
 # launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # launch compton
-exec_always --no-startup-id compton --config $HOME/.compton.conf
+# exec_always --no-startup-id compton --config $HOME/.compton.conf
 
 # lock screen
 bindsym $mod+shift+x exec i3lock --color "$background"
 
 # set wallpaper:
-exec_always feh --bg-fill $HOME/.config/wallpaper/dracula_ubuntu.png
+exec_always feh --bg-fill $HOME/.config/wallpaper/nord-planet.png
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
