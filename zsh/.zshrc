@@ -27,26 +27,15 @@ fi
 zplug load
 
 # setup pure prompt
-fpath+=$HOME/.pure
+fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
 # editor aliases
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
-export TERMINAL="gnome-terminal"
-export BROWSER="google-chrome"
-export READER="zathura"
 
 export CODE_PATH="${HOME}/code"
-
-# wright group stuff
-# bart aliases
-export TOOLBOX_PATH="${CODE_PATH}/wright-group/bart"
-export PYTHONPATH="${TOOLBOX_PATH}/python:$PYTHONPATH"
-
-# view alias
-alias view="${CODE_PATH}/wright-group/view/view"
 
 # fzf configuration
 export FZF_DEFAULT_OPTS="
@@ -63,36 +52,19 @@ export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 export efficienzsh="${CODE_PATH}/efficienzsh"
 [ -f $efficienzsh/fzf-git.zsh ] && source $efficienzsh/fzf-git.zsh
 [ -f $efficienzsh/fzf-kubectl.zsh ] && source $efficienzsh/fzf-kubectl.zsh
-[ -f $efficienzsh/fzf-gh.zsh ] && source $efficienzsh/fzf-gh.zsh
-
-# xrandr functions and aliases
-[ -f ~/.scripts/xrandr.zsh ] && source ~/.scripts/xrandr.zsh
-
-# to-do list functions and aliases
-[ -f ~/.scripts/todo.zsh ] && source ~/.scripts/todo.zsh
 
 # python venv functions and aliases
 [ -f ~/.scripts/venv.zsh ] && source ~/.scripts/venv.zsh
 
-# clockify-cli functions and aliases
-[ -f ~/.scripts/clockify.zsh ] && source ~/.scripts/clockify.zsh
-
-# xclip alias
-alias cpwd="pwd | xclip -selection clipboard"
-
-# misc aliases
-alias lsg="ls | grep"
-alias ll="ls -la"
-alias llg="ll | grep"
+# Misc aliases
 alias grep='grep --color=auto'
 alias python="python3"
+# alias ig='ig --editor neovim'
 
 # source fzf file if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-function env_mlflow_vysio() {
-  export MLFLOW_TRACKING_URI="http://mlflow.vysio.ca"
-  export MLFLOW_TRACKING_USERNAME="admin"
-  export MLFLOW_TRACKING_PASSWORD="guhfugpass"
-  export GOOGLE_APPLICATION_CREDENTIALS="/home/nathanrowe/code/vysio/mlflow/mlflow/vysio-330718-0ceb5e77143e.json"
-}
+export BAT_THEME="gruvbox-dark"
+bindkey -v
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

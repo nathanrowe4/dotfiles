@@ -51,7 +51,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'                               " Git
-Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " Fuzzy search
 Plug 'junegunn/fzf.vim'                                 " Fuzzy search
 Plug 'junegunn/vim-peekaboo'                            " Preview registers/macros
@@ -61,15 +60,13 @@ Plug 'tpope/vim-surround'                               " Surrounding
 Plug 'tpope/vim-repeat'                                 " Repeat plugin commands
 Plug 'tpope/vim-commentary'                             " Commenting
 Plug 'wellle/targets.vim'
-Plug 'arcticicestudio/nord-vim'                         " Nord theme
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'sbdchd/neoformat'
 Plug 'ryanoasis/vim-devicons'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
 "------Colour Scheme
-colorscheme nord
+colorscheme gruvbox
 set termguicolors
 
 "---------------Mappings ----------------
@@ -154,13 +151,14 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
+      \   'filetype': 'MyFiletype',
       \ },
       \ 'tab_component_function': {
       \   'tabnum': 'LightlineWebDevIcons',
@@ -170,6 +168,10 @@ let g:lightline = {
 function! LightlineWebDevIcons(n)
   let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
   return WebDevIconsGetFileTypeSymbol(bufname(l:bufnr))
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : '') : ''
 endfunction
 
 let g:fzf_colors =
